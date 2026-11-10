@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+:root {
+  /* Palette — The Sunday Table */
+  --bg-butter: #FBF7EE;
+  --bg-parchment: #F2E9D8;
+  --bg-linen: #E7DBC6;
+  --bg-card: #FFFDF8;
+  --ink-charcoal: #231F1D;
+  --ink-walnut: #5A4231;
+  --ink-muted: #6E5441;
+  --accent-tomato: #B83A24;
+  --accent-tomato-deep: #8F2917;
+  --accent-olive: #4A5838;
+  --accent-olive-light: #E4E8DC;
+  --accent-ochre: #A86B1C;
+  --border-rule: #D8C8B0;
+  --border-strong: #B59F82;
+
+  /* Typography */
+  --font-display: "EB Garamond", Georgia, Cambria, "Times New Roman", serif;
+  --font-serif: "Literata", Georgia, serif;
+  --font-sans: "Karla", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hand: "Homemade Apple", cursive;
+
+  /* Custom Easing (emil-design-eng) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  color-scheme: light;
+  scrollbar-color: #B59F82 #F2E9D8;
+  scrollbar-width: thin;
+}
+
+html {
+  background-color: var(--bg-butter);
+  color: var(--ink-charcoal);
+  font-family: var(--font-serif);
+  caret-color: var(--accent-tomato);
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-butter);
+  color: var(--ink-charcoal);
+  font-family: var(--font-serif);
+  line-height: 1.7;
+  overflow-x: hidden;
+  /* Subtle warm linen paper weave via CSS radial/linear micro-texture */
+  background-image: 
+    radial-gradient(rgba(90, 66, 49, 0.03) 1px, transparent 0),
+    radial-gradient(rgba(184, 58, 36, 0.018) 1px, transparent 0);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+/* Custom Browser Surfaces */
+::selection {
+  background-color: rgba(184, 58, 36, 0.18);
+  color: var(--ink-charcoal);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-parchment);
+  border-left: 1px solid var(--border-rule);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B59F82;
+  border: 2px solid var(--bg-parchment);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-walnut);
+}
+
+/* Accessible Focus Rings */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-tomato);
+  outline-offset: 3px;
+  scroll-margin-top: 96px;
+  scroll-margin-bottom: 64px;
+}
+
+/* Typography Helpers */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-serif-body {
+  font-family: var(--font-serif);
+}
+
+.font-ui {
+  font-family: var(--font-sans);
+}
+
+.font-hand {
+  font-family: var(--font-hand);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.oldstyle-nums {
+  font-variant-numeric: oldstyle-nums;
+}
+
+/* Editorial Measure (65-72ch floor) */
+.reading-measure {
+  max-width: 68ch;
+}
+
+/* Tactile Pressable Controls */
+.btn-tactile,
+button,
+[role="button"] {
+  transition:
+    transform 150ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+
+.btn-tactile:active,
+button:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+/* Hover states gated for fine pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  .photo-frame img {
+    transition: transform 650ms var(--ease-out), filter 450ms var(--ease-out);
+  }
+  .photo-frame:hover img {
+    transform: scale(1.025);
+  }
+  .ledger-row-hover {
+    transition: background-color 180ms var(--ease-out);
+  }
+  .ledger-row-hover:hover {
+    background-color: rgba(242, 233, 216, 0.75);
+  }
+}
+
+/* Stained Recipe Index Card */
+.recipe-index-card {
+  background-color: var(--bg-parchment);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 31px,
+    rgba(181, 159, 130, 0.28) 31px,
+    rgba(181, 159, 130, 0.28) 32px
+  );
+  box-shadow: 0 10px 28px -12px rgba(35, 31, 29, 0.14);
+}
+
+/* Open Cookbook Spine Shadow */
+.cookbook-spread {
+  background: linear-gradient(
+    90deg,
+    #F4ECDC 0%,
+    #FBF7EE 4%,
+    #FBF7EE 48.5%,
+    #E6D9C3 50%,
+    #FBF7EE 51.5%,
+    #FBF7EE 100%
+  );
+}
+
+/* Subtle Page Reveal */
+@keyframes pageSettle {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageSettle 280ms var(--ease-out) forwards;
+}
+
+/* Print / Reduced Motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .photo-frame:hover img {
+    transform: none !important;
+  }
+}
+
